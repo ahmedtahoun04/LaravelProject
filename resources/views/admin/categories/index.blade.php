@@ -11,11 +11,27 @@
 <body class="bg-light">
 
     <div class="container py-4">
+        {{-- Flash Messages --}}
+@if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        ✅ {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+@endif
+
+@if (session('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        ❌ {{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+@endif
         
         <!-- Header -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2>Categories</h2>
-            <a href="#" class="btn btn-primary">+ Add Category</a>
+           <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">
+    + Add Category
+</a>
         </div>
 
         <!-- Categories Table -->
@@ -53,9 +69,22 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="#" class="btn btn-sm btn-info">View</a>
-                                    <a href="#" class="btn btn-sm btn-warning">Edit</a>
-                                    <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                                   <a href="{{ route('admin.categories.show', $category->id) }}" 
+   class="btn btn-sm btn-info">View</a>
+
+<a href="{{ route('admin.categories.edit', $category->id) }}" 
+   class="btn btn-sm btn-warning">Edit</a>
+
+<form action="{{ route('admin.categories.destroy', $category->id) }}" 
+      method="POST" class="d-inline">
+    @csrf
+    @method('DELETE')
+    <button type="submit" 
+            class="btn btn-sm btn-danger"
+            onclick="return confirm('Are you sure you want to delete this category?')">
+        Delete
+    </button>
+</form>
                                 </td>
                             </tr>
                         @empty
@@ -76,6 +105,8 @@
         </div>
 
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
