@@ -1,12 +1,12 @@
 @extends('layouts.admin')
 
-@section('title') Products @endsection
+@section('title') Categories @endsection
 
 @section('content')
 
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <a href="{{ route('admin.products.create') }}" class="btn btn-primary">
-            <i class="fas fa-plus mr-1"></i> Add Product
+        <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">
+            <i class="fas fa-plus mr-1"></i> Add Category
         </a>
     </div>
 
@@ -16,51 +16,44 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>ID</th>
-                        <th>Image</th>
                         <th>Title</th>
-                        <th>Category</th>
-                        <th>Price</th>
-                        <th>Stock</th>
+                        <th>Slug</th>
+                        <th>Parent</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($products as $product)
+                    @forelse ($categories as $category)
                     <tr>
-                        <td>{{ $product->id }}</td>
+                        <td>{{ $category->id }}</td>
+                        <td>{{ $category->title }}</td>
+                        <td><code>{{ $category->slug }}</code></td>
                         <td>
-                            @if ($product->image)
-                                <img src="{{ asset('storage/' . $product->image) }}"
-                                     width="50" height="50"
-                                     style="object-fit: cover"
-                                     class="rounded">
+                            @if ($category->parent)
+                                {{ $category->parent->title }}
                             @else
-                                <span class="text-muted">No image</span>
+                                <span class="text-muted">— Root —</span>
                             @endif
                         </td>
-                        <td>{{ $product->title }}</td>
-                        <td>{{ $product->category->title ?? 'N/A' }}</td>
-                        <td>${{ $product->price }}</td>
-                        <td>{{ $product->stock }}</td>
                         <td>
-                            @if ($product->status)
+                            @if ($category->status)
                                 <span class="badge badge-success">Active</span>
                             @else
                                 <span class="badge badge-secondary">Inactive</span>
                             @endif
                         </td>
                         <td>
-                            <a href="{{ route('admin.products.edit', $product->id) }}"
+                            <a href="{{ route('admin.categories.edit', $category->id) }}"
                                class="btn btn-sm btn-warning">
                                 <i class="fas fa-edit"></i> Edit
                             </a>
-                            <form action="{{ route('admin.products.destroy', $product->id) }}"
+                            <form action="{{ route('admin.categories.destroy', $category->id) }}"
                                   method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger"
-                                        onclick="return confirm('Delete this product?')">
+                                        onclick="return confirm('Delete this category?')">
                                     <i class="fas fa-trash"></i> Delete
                                 </button>
                             </form>
@@ -68,14 +61,14 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="8" class="text-center text-muted py-4">No products found.</td>
+                        <td colspan="6" class="text-center text-muted py-4">No categories found.</td>
                     </tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
         <div class="card-footer text-muted">
-            Total: <strong>{{ $products->count() }}</strong> products
+            Total: <strong>{{ $categories->count() }}</strong> categories
         </div>
     </div>
 
