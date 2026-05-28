@@ -28,6 +28,7 @@
                         <th>Price</th>
                         <th>Stock</th>
                         <th>Status</th>
+                        <th>Image</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -39,6 +40,16 @@
                         <td>{{ $product->category->title ?? 'N/A' }}</td>
                         <td>${{ $product->price }}</td>
                         <td>{{ $product->stock }}</td>
+                        <td>
+    @if ($product->image)
+        <img src="{{ asset('storage/' . $product->image) }}" 
+             width="50" height="50"
+             style="object-fit: cover"
+             class="rounded">
+    @else
+        <span class="text-muted">No image</span>
+    @endif
+</td>
                         <td>
                             @if($product->status)
                                 <span class="badge bg-success">Active</span>

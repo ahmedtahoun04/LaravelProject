@@ -25,7 +25,7 @@
 
     <div class="card shadow-sm">
         <div class="card-body">
-            <form action="{{ route('admin.products.store') }}" method="POST">
+           <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="mb-3">
@@ -93,6 +93,13 @@
                         <option value="0">Inactive</option>
                     </select>
                 </div>
+
+<div class="mb-3">
+    <label class="form-label">Product Image</label>
+    <input type="file" name="image" class="form-control" accept="image/*">
+    <div class="form-text">Max size: 2MB. Supported: JPG, PNG, GIF</div>
+</div>
+
 
                 <div class="d-flex gap-2">
                     <button type="submit" class="btn btn-primary">Save Product</button>

@@ -25,7 +25,7 @@
 
     <div class="card shadow-sm">
         <div class="card-body">
-            <form action="{{ route('admin.products.update', $product->id) }}" method="POST">
+            <form action="{{ route('admin.products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -94,6 +94,20 @@
                         <option value="1" {{ old('status', $product->status) == 1 ? 'selected' : '' }}>Active</option>
                         <option value="0" {{ old('status', $product->status) == 0 ? 'selected' : '' }}>Inactive</option>
                     </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Product Image</label>
+                    <input type="file" name="image" class="form-control" accept="image/*">
+                    {{-- Show current image if exists --}}
+                    @if ($product->image)
+                        <div class="mt-2">
+                            <img src="{{ asset('storage/' . $product->image) }}"
+                                 width="100" class="rounded border">
+                            <small class="text-muted d-block">Current image</small>
+                        </div>
+                    @endif
+                    <div class="form-text">Leave empty to keep current image.</div>
                 </div>
 
                 <div class="d-flex gap-2">

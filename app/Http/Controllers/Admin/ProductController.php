@@ -29,7 +29,14 @@ class ProductController extends Controller
             'category_id' => 'required|exists:categories,id',
             'price'       => 'required|numeric|min:0',
             'stock'       => 'required|integer|min:0',
+            'image'       => 'nullable|image|max:2048',
         ]);
+
+        // Handle image upload
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('products', 'public');
+        }
 
         Product::create([
             'category_id' => $request->category_id,
@@ -38,6 +45,7 @@ class ProductController extends Controller
             'keywords'    => $request->keywords,
             'description' => $request->description,
             'detail'      => $request->detail,
+            'image'       => $imagePath,
             'price'       => $request->price,
             'stock'       => $request->stock,
             'discount'    => $request->discount ?? 0,
@@ -63,7 +71,13 @@ class ProductController extends Controller
             'category_id' => 'required|exists:categories,id',
             'price'       => 'required|numeric|min:0',
             'stock'       => 'required|integer|min:0',
+            'image'       => 'nullable|image|max:2048',
         ]);
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $product->image = $request->file('image')->store('products', 'public');
+        }
 
         $product->update([
             'category_id' => $request->category_id,
@@ -72,6 +86,7 @@ class ProductController extends Controller
             'keywords'    => $request->keywords,
             'description' => $request->description,
             'detail'      => $request->detail,
+            'image'       => $product->image,
             'price'       => $request->price,
             'stock'       => $request->stock,
             'discount'    => $request->discount ?? 0,
