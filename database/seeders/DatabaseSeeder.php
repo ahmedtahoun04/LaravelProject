@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         // This is the main seeder. 
         // To run all seeders at once, list them here:
+        $this->call(ProductSeeder::class);
         $this->call([
             CategorySeeder::class,
         ]);
