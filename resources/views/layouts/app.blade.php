@@ -125,7 +125,7 @@
                     <li class="nav-item me-2">
                         <a class="nav-link cart-badge" href="/cart">
                             <i class="fas fa-shopping-cart fa-lg"></i>
-                            <span class="cart-count">0</span>
+                            <span class="cart-count">{{ count(session()->get('cart', [])) }}</span>
                         </a>
                     </li>
                     @auth

@@ -69,9 +69,12 @@
                     <input type="number" class="form-control text-center" value="1" min="1">
                     <button class="btn btn-outline-secondary" type="button">+</button>
                 </div>
-                <button class="btn btn-dark btn-lg flex-grow-1">
-                    <i class="fas fa-shopping-cart me-2"></i>Add to Cart
-                </button>
+                <form action="{{ route('cart.add', $product->id) }}" method="POST" class="flex-grow-1">
+                    @csrf
+                    <button type="submit" class="btn btn-dark btn-lg w-100">
+                        <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                    </button>
+                </form>
             </div>
 
             {{-- Meta --}}
