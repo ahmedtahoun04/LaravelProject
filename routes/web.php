@@ -7,9 +7,13 @@ use Illuminate\Support\Facades\Route;
 
 // Home Page
 Route::get('/', function () {
-    return view('welcome');
+    $products = \App\Models\Product::with('category')
+                                   ->where('status', true)
+                                   ->latest()
+                                   ->take(8)
+                                   ->get();
+    return view('home', compact('products'));
 });
-
 // Dashboard (Breeze default) - Redirect to Admin Dashboard
 Route::get('/dashboard', function () {
     return redirect()->route('admin.dashboard');
