@@ -14,6 +14,36 @@ Route::get('/', function () {
                                    ->get();
     return view('home', compact('products'));
 });
+
+// Shop Page
+Route::get('/shop', function () {
+    $categories = \App\Models\Category::whereNull('parent_id')->get();
+
+    $query = \App\Models\Product::with('category')->where('status', true);
+
+    // Filter by search
+    if (request('search')) {
+        $query->where('title', 'like', '%' . request('search') . '%');
+    }
+
+    // Filter by category
+    if (request('category')) {
+        $query->whereHas('category', function($q) {
+            $q->where('slug', request('category'));
+        });
+    }
+
+    $products = $query->latest()->get();
+
+    return view('shop', compact('products', 'categories'));
+});
+
+// Product Details
+Route::get('/shop/{id}', function ($id) {
+    $product = \App\Models\Product::with('category')->findOrFail($id);
+    return view('product', compact('product'));
+});
+
 // Dashboard (Breeze default) - Redirect to Admin Dashboard
 Route::get('/dashboard', function () {
     return redirect()->route('admin.dashboard');
