@@ -40,7 +40,7 @@
 
     {{-- Sidebar --}}
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <a href="/admin" class="brand-link">
+        <a href="{{ route('admin.dashboard') }}" class="brand-link">
             <i class="fas fa-store ml-2 mr-2"></i>
             <span class="brand-text font-weight-light">Fashion Store</span>
         </a>
@@ -49,6 +49,16 @@
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
 
+                    {{-- Dashboard --}}
+                    <li class="nav-item">
+                        <a href="{{ route('admin.dashboard') }}"
+                           class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+
+                    {{-- Categories --}}
                     <li class="nav-item">
                         <a href="{{ route('admin.categories.index') }}"
                            class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
@@ -57,6 +67,7 @@
                         </a>
                     </li>
 
+                    {{-- Products --}}
                     <li class="nav-item">
                         <a href="{{ route('admin.products.index') }}"
                            class="nav-link {{ request()->routeIs('admin.products.*') ? 'active' : '' }}">
