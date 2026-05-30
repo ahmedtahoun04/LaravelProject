@@ -30,14 +30,10 @@
                     <tr>
                         <td>{{ $product->id }}</td>
                         <td>
-                            @if ($product->image)
-                                <img src="{{ asset('storage/' . $product->image) }}"
-                                     width="50" height="50"
-                                     style="object-fit: cover"
-                                     class="rounded">
-                            @else
-                                <span class="text-muted">No image</span>
-                            @endif
+                            <img src="{{ $product->image_url }}"
+                                 width="50" height="50"
+                                 style="object-fit: cover"
+                                 class="rounded">
                         </td>
                         <td>{{ $product->title }}</td>
                         <td>{{ $product->category->title ?? 'N/A' }}</td>

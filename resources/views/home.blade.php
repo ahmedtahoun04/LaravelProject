@@ -77,15 +77,8 @@
                 <div class="col-md-3">
                     <div class="card product-card shadow-sm h-100">
                         {{-- Image --}}
-                        @if ($product->image)
-                            <img src="{{ asset('storage/' . $product->image) }}"
-                                 class="card-img-top" alt="{{ $product->title }}">
-                        @else
-                            <div class="bg-secondary d-flex align-items-center justify-content-center"
-                                 style="height: 250px">
-                                <i class="fas fa-image fa-3x text-white"></i>
-                            </div>
-                        @endif
+                        <img src="{{ $product->image_url }}"
+                             class="card-img-top" alt="{{ $product->title }}">
 
                         <div class="card-body">
                             <small class="text-muted">{{ $product->category->title ?? '' }}</small>

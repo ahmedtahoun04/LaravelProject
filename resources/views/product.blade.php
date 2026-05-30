@@ -20,15 +20,8 @@
 
         {{-- Product Image --}}
         <div class="col-md-6">
-            @if ($product->image)
-                <img src="{{ asset('storage/' . $product->image) }}"
-                     class="img-fluid rounded shadow" alt="{{ $product->title }}">
-            @else
-                <div class="bg-light rounded d-flex align-items-center justify-content-center"
-                     style="height: 400px">
-                    <i class="fas fa-image fa-5x text-muted"></i>
-                </div>
-            @endif
+            <img src="{{ $product->image_url }}"
+                 class="img-fluid rounded shadow" alt="{{ $product->title }}">
         </div>
 
         {{-- Product Info --}}
