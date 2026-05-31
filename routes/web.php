@@ -35,7 +35,7 @@ Route::get('/shop', function () {
         });
     }
 
-    $products = $query->latest()->get();
+    $products = $query->latest()->paginate(9);
 
     return view('shop', compact('products', 'categories'));
 });

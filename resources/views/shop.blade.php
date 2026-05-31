@@ -42,7 +42,7 @@
                 <h4 class="fw-bold">
                     {{ request('search') ? 'Search: "' . request('search') . '"' : 'All Products' }}
                 </h4>
-                <span class="text-muted">{{ $products->count() }} products</span>
+                <span class="text-muted">{{ $products->total() }} products</span>
             </div>
 
             {{-- Products --}}
@@ -77,6 +77,11 @@
                     <a href="/shop" class="btn btn-dark mt-3">View All Products</a>
                 </div>
                 @endforelse
+            </div>
+
+            {{-- Pagination --}}
+            <div class="d-flex justify-content-center mt-4">
+                {{ $products->links() }}
             </div>
 
         </div>
