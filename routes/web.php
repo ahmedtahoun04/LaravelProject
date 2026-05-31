@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 // Home Page
@@ -42,7 +43,7 @@ Route::get('/shop', function () {
 
 // Product Details
 Route::get('/shop/{id}', function ($id) {
-    $product = \App\Models\Product::with('category')->findOrFail($id);
+    $product = \App\Models\Product::with(['category', 'reviews.user'])->findOrFail($id);
     return view('product', compact('product'));
 });
 
@@ -59,6 +60,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkout', [OrderController::class, 'store'])->name('orders.store');
     Route::get('/my-orders', [OrderController::class, 'myOrders'])->name('orders.index');
     Route::get('/my-orders/{id}', [OrderController::class, 'show'])->name('orders.show');
+
+    // Review Routes
+    Route::post('/reviews/{productId}', [ReviewController::class, 'store'])->name('reviews.store');
+    Route::delete('/reviews/{id}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
 });
 
 // Dashboard (Breeze default) - Redirect to Admin Dashboard
