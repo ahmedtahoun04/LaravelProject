@@ -8,9 +8,6 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    /**
-     * Display all orders.
-     */
     public function index()
     {
         $orders = Order::with('user')
@@ -20,9 +17,6 @@ class OrderController extends Controller
         return view('admin.orders.index', compact('orders'));
     }
 
-    /**
-     * Show order details.
-     */
     public function show($id)
     {
         $order = Order::with(['user', 'items'])
@@ -31,9 +25,6 @@ class OrderController extends Controller
         return view('admin.orders.show', compact('order'));
     }
 
-    /**
-     * Update order status.
-     */
     public function updateStatus(Request $request, $id)
     {
         $request->validate([

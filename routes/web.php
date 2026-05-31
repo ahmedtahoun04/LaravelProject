@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReviewController;
@@ -24,12 +25,10 @@ Route::get('/shop', function () {
 
     $query = \App\Models\Product::with('category')->where('status', true);
 
-    // Filter by search
     if (request('search')) {
         $query->where('title', 'like', '%' . request('search') . '%');
     }
 
-    // Filter by category
     if (request('category')) {
         $query->whereHas('category', function($q) {
             $q->where('slug', request('category'));
@@ -66,7 +65,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/reviews/{id}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
 });
 
-// Dashboard (Breeze default) - Redirect to Admin Dashboard
+// Dashboard (Breeze default)
 Route::get('/dashboard', function () {
     return redirect()->route('admin.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -90,6 +89,7 @@ Route::prefix('admin')
         Route::get('/', function () {
             $categoriesCount = \App\Models\Category::count();
             $productsCount   = \App\Models\Product::count();
+            $ordersCount     = \App\Models\Order::count();
 
             $latestProducts = \App\Models\Product::with('category')
                                                  ->latest()
@@ -99,6 +99,7 @@ Route::prefix('admin')
             return view('admin.dashboard', compact(
                 'categoriesCount',
                 'productsCount',
+                'ordersCount',
                 'latestProducts'
             ));
         })->name('dashboard');
@@ -108,6 +109,11 @@ Route::prefix('admin')
 
         // Products
         Route::resource('products', ProductController::class);
+
+        // Orders
+        Route::get('orders', [AdminOrderController::class, 'index'])->name('orders.index');
+        Route::get('orders/{id}', [AdminOrderController::class, 'show'])->name('orders.show');
+        Route::patch('orders/{id}/status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
 
     });
 

@@ -40,13 +40,13 @@
         <div class="col-lg-4 col-md-6">
             <div class="small-box bg-warning">
                 <div class="inner">
-                    <h3>0</h3>
+                    <h3>{{ $ordersCount }}</h3>
                     <p>Orders</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-shopping-cart"></i>
                 </div>
-                <a href="#" class="small-box-footer">
+                <a href="{{ route('admin.orders.index') }}" class="small-box-footer">
                     View All <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>
@@ -84,14 +84,10 @@
                             @forelse ($latestProducts as $product)
                             <tr>
                                 <td>
-                                    @if ($product->image)
-                                        <img src="{{ asset('storage/' . $product->image) }}"
-                                             width="40" height="40"
-                                             style="object-fit: cover"
-                                             class="rounded">
-                                    @else
-                                        <span class="text-muted">—</span>
-                                    @endif
+                                    <img src="{{ $product->image_url }}"
+                                         width="40" height="40"
+                                         style="object-fit: cover"
+                                         class="rounded">
                                 </td>
                                 <td>{{ $product->title }}</td>
                                 <td>{{ $product->category->title ?? 'N/A' }}</td>

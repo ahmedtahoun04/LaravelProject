@@ -31,6 +31,11 @@
         </ul>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
+                <a class="nav-link" href="/">
+                    <i class="fas fa-store mr-1"></i> View Store
+                </a>
+            </li>
+            <li class="nav-item">
                 <span class="nav-link">
                     <i class="fas fa-user mr-1"></i> Admin
                 </span>
@@ -73,6 +78,15 @@
                            class="nav-link {{ request()->routeIs('admin.products.*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-box"></i>
                             <p>Products</p>
+                        </a>
+                    </li>
+
+                    {{-- Orders --}}
+                    <li class="nav-item">
+                        <a href="{{ route('admin.orders.index') }}"
+                           class="nav-link {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-shopping-bag"></i>
+                            <p>Orders</p>
                         </a>
                     </li>
 
