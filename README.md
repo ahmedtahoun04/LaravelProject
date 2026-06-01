@@ -167,8 +167,7 @@ resources/views/
 **Ahmed Abdelaziz Tahoun**
 - GitHub: [@ahmedtahoun04](https://github.com/ahmedtahoun04)
 - University: Nişantaşı University
-- Course: ESOF302 - Advanced Web Development
-
+- LinkedIn: [Ahmed Tahoun](https://www.linkedin.com/in/ahmed-tahoun-b1a71b319/)
 ---
 
 ## 📄 License
